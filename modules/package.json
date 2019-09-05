@@ -1,0 +1,31 @@
+{
+  "name": "editor",
+  "version": "0.0.1",
+  "description": "An editor to create simulator specifications",
+  "main": "index.js",
+  "dependencies": {
+    "ecore": "^0.12.0",
+    "uuid": "^3.3.3"
+  },
+  "devDependencies": {
+    "ecore": "^0.12.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/layornos/DES_Compare_Editor.git"
+  },
+  "keywords": [
+    "ecore",
+    "emf",
+    "simulator"
+  ],
+  "author": "Sandro Koch",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/layornos/DES_Compare_Editor/issues"
+  },
+  "homepage": "https://github.com/layornos/DES_Compare_Editor#readme"
+}
