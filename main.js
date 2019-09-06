@@ -1,3 +1,19 @@
+function xml_to_string(xml_node)
+{
+    if (xml_node.xml)
+        return xml_node.xml;
+    else if (XMLSerializer)
+    {
+        var xml_serializer = new XMLSerializer();
+        return xml_serializer.serializeToString(xml_node);
+    }
+    else
+    {
+        alert("ERROR: Extremely old browser");
+        return "";
+    }
+}
+
 function simulator_specification() {
 
     //
@@ -63,7 +79,7 @@ function simulator_specification() {
 
     // ATTRIBUTE
     var attribute = Ecore.EClass.create({
-        name: 'Entity',
+        name: 'Attribute',
         eSuperTypes: [
             identifier
         ],
@@ -123,41 +139,60 @@ function simulator_specification() {
         ]
     })
     // SCHEDULES
-
-    // WRITES ATTRIBUTE
-
-    // Simulator Class
-    var simulator = Ecore.EClass.create({
-        name : "Simulator",
+    var schedules = Ecore.EClass.create({
+        name : 'Schedules',
         eSuperTypes: [
             identifier
         ],
         eStructuralFeatures: [
-            Ecroe.EAttribute.create({
+            Ecore.EAttribute.create({
                 name: 'condition',
-                eType: EString
+                eType: Ecore.EString
             }),
             Ecore.EAttribute.create({
                 name: 'delay',
-                eType: EString
+                eType: Ecore.EString
             }),
             Ecore.EAttribute.create({
                 name: 'startEvent',
-                eType: Event
+                eType: event
             }),
             Ecore.EAttribute.create({
                 name: 'endEvent',
-                eType: Event
+                eType: event
             })
         ]
 
+    })
+
+    // WRITES ATTRIBUTE
+    var writes_attribute = Ecore.EClass.create({
+        name: 'WritesAttribute',
+        eStructuralFeatures: [
+            Ecore.EAttribute.create({
+                name: 'condition',
+                eType: Ecore.EString
+            }),
+            Ecore.EAttribute.create({
+                name: 'writeFunction',
+                eType: Ecore.EString
+            }),
+            Ecore.EAttribute.create({
+                name: 'startEvent',
+                eType: event
+            }),
+            Ecore.EAttribute.create({
+                name: 'attribute',
+                eType: attribute
+            }),
+        ]
     })
     // simulator.get('eStructuralFeatures').add(Ecore.EAttribute.create({name: 'id', eType: Ecore.EString}))
     // simulator.get('eStructuralFeatures').add(Ecore.EAttribute.create({name: 'name', eType: Ecore.EString}))
     // simulator.get('eStructuralFeatures').add(Ecore.EAttribute.create({name: 'description', eType: Ecore.EString}))
 
 
-    simSpecackage.get('eClassifiers').add(Simulator);
+    simSpecPackage.get('eClassifiers').add(simulator);
 
     var resourceSet = Ecore.ResourceSet.create();
     // A Resource is used to load/save a model and also
@@ -169,10 +204,12 @@ function simulator_specification() {
     resource.get('contents').add(simSpecPackage);
 
     // Serialize the model in JSON
-    console.log(resoucre.to(Ecore.JSON));
+    // console.log(resource.to(Ecore.JSON));
 
     // Serialize the model in XMI
-    console.log(resource.to(Ecore.XMI, true))
+    var xmi = resource.to(Ecore.XMI, true)
+    console.log(xmi)
+    document.write(xml_to_string(xmi))
     
 
 };
