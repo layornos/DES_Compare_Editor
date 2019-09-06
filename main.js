@@ -15,20 +15,32 @@ function simulator_specification() {
     
     // Classes
 
+    // IDENTIFIER
+    var identifier = Ecore.EClass.create({
+        name: 'Identifier',
+        eStructuralFeatures: [
+            Ecore.EAttribute.create({
+                name: 'id',
+                eType: Ecore.EString
+            }),
+            Ecore.EAttribute.create({
+                name: 'name',
+                eType: Ecore.EString
+            })
+        ]
+    })
     // SIMULATOR 
     // Root Element of the metamodel
     // Represents one Simulator
+    var SuperClass = Ecore.EClass.create();
+            MyClass.get('eSuperTypes').add(SuperClass);
+
     var simulator = Ecore.EClass.create({ 
         name: 'Simulator',
+        eSuperTypes: [
+            identifier
+        ],
         eStructuralFeatures: [
-            Ecore.EAttribute.create({
-                name: 'id', 
-                eType: Ecore.EString
-            }),
-            Ecore.EAttribute.create({
-                name: 'name', 
-                eType: Ecore.EString
-            }),
             Ecore.EAttribute.create({
                 name: 'description', 
                 eType: Ecore.EString
@@ -39,21 +51,26 @@ function simulator_specification() {
     // SIMULATION ENTITY
     var entity = Ecore.EClass.create({
         name: 'Entity',
-
+        eSuperTypes: [
+            identifier
+        ],
+        eStructuralFeatures: [
+            Ecore.EReference.create({
+                name: 'has_attribute',
+                upperBound: -1,
+                containment: true,
+                eType: attribute
+            })
+        ]
     })
 
     // ATTRIBUTE
     var attribute = Ecore.EClass.create({
         name: 'Entity',
+        eSuperTypes: [
+            identifier
+        ],
         eStructuralFeatures: [
-            Ecore.EAttribute.create({
-                name: 'id',
-                eType: Ecore.EString
-            }),
-            Ecore.EAttribute.create({
-                name: 'name',
-                eType: Ecore.EString
-            }),
             Ecore.EAttribute.create({
                 name: 'type',
                 eType: Ecore.EString
@@ -64,18 +81,79 @@ function simulator_specification() {
     // PROPERTY
     var property = Ecore.EClass.create({
         name: 'Porperty',
-        eStructuralFeatures
+        eSuperTypes: [
+            identifier
+        ],
+        eStructuralFeatures: [
+            Ecore.EAttribute.create({
+                name: 'description',
+                eType: Ecore.EString
+            })
+        ]
     })
 
     // EVENT
-
+    var event = Ecore.EClass.create({
+        name: 'Event',
+        eSuperTypes: [
+            identifier
+        ],
+        eStructuralFeatures: [
+            Ecore.EReference.create({
+                name: 'entity',
+                upperBound: -1,
+                containment: true,
+                eType: entity
+            }),
+            Ecore.EReference.create({
+                name: 'schedules',
+                upperBound: -1,
+                containment: true,
+                eType: schedules
+            }),
+            Ecore.EReference.create({
+                name: 'read_attribute',
+                upperBound: -1,
+                containment: true,
+                eType: attribute
+            }),
+            Ecore.EReference.create({
+                name: 'writes',
+                upperBound: -1,
+                containment: true,
+                eType: attribute
+            }),
+        ]
+    })
     // SCHEDULES
 
     // WRITES ATTRIBUTE
 
     // Simulator Class
     var simulator = Ecore.EClass.create({
-        name : "Simulator"
+        name : "Simulator",
+        eSuperTypes: [
+            identifier
+        ],
+        eStructuralFeatures: [
+            Ecroe.EAttribute.create({
+                name: 'condition',
+                eType: EString
+            }),
+            Ecore.EAttribute.create({
+                name: 'delay',
+                eType: EString
+            }),
+            Ecore.EAttribute.create({
+                name: 'startEvent',
+                eType: Event
+            }),
+            Ecore.EAttribute.create({
+                name: 'endEvent',
+                eType: Event
+            })
+        ]
+
     })
     // simulator.get('eStructuralFeatures').add(Ecore.EAttribute.create({name: 'id', eType: Ecore.EString}))
     // simulator.get('eStructuralFeatures').add(Ecore.EAttribute.create({name: 'name', eType: Ecore.EString}))
