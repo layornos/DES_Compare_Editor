@@ -32,9 +32,6 @@ function simulator_specification() {
     // SIMULATOR 
     // Root Element of the metamodel
     // Represents one Simulator
-    var SuperClass = Ecore.EClass.create();
-            MyClass.get('eSuperTypes').add(SuperClass);
-
     var simulator = Ecore.EClass.create({ 
         name: 'Simulator',
         eSuperTypes: [
@@ -174,6 +171,10 @@ function simulator_specification() {
     // Serialize the model in JSON
     console.log(resoucre.to(Ecore.JSON));
 
+    // Serialize the model in XMI
+    console.log(resource.to(Ecore.XMI, true))
+    
+
 };
 
-window.onload = hello;
+window.onload = simulator_specification;
