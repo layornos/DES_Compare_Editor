@@ -3,7 +3,7 @@
   <mat-label>Favorite food</mat-label>
   <mat-select>
     <mat-option *ngFor="let food of foods" [value]="food.value">
-      {{food.viewValue}}
+      {{ food.viewValue }}
     </mat-option>
   </mat-select>
 </mat-form-field>
@@ -18,3 +18,28 @@
     <option value="audi">Audi</option>
   </select>
 </mat-form-field>
+
+<form [formGroup]="formGroup">
+  <mat-form-field>
+    <mat-select placeholder="Select a genus" formControlName="genus" multiple>
+      <mat-option *ngFor="let species of source$ | async" [value]="species">{{
+        species.type
+      }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <br />
+  <mat-form-field>
+    <mat-select
+      placeholder="Select a subgenus"
+      formControlName="subgenus"
+      multiple
+    >
+      <mat-option
+        *ngFor="let subspecies of subSource$ | async"
+        [value]="subspecies"
+      >
+        {{ subspecies.species }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</form>
