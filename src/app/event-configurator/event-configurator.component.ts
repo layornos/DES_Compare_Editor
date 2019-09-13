@@ -2,6 +2,15 @@ import { Component, OnInit, Input } from "@angular/core";
 import { Simulator } from "../simulator";
 import { Event } from "../event";
 import { Guid } from "guid-typescript";
+import { FormGroup, FormControl } from '@angular/forms';
+import { of } from 'rxjs';
+import { map } from 'rxjs/operators';
+
+
+export interface Food {
+  value: string;
+  viewValue: string;
+}
 
 @Component({
   selector: "app-event-configurator",
@@ -9,7 +18,14 @@ import { Guid } from "guid-typescript";
   styleUrls: ["./event-configurator.component.css"]
 })
 export class EventConfiguratorComponent implements OnInit {
-  @Input() simulator: Simulator;
+  @Input() simulator:Simulator;
+
+  foods: Food[] = [
+    {value: 'steak-0', viewValue: 'Steak'},
+    {value: 'pizza-1', viewValue: 'Pizza'},
+    {value: 'tacos-2', viewValue: 'Tacos'}
+  ];
+  constructor() { }
 
   event: Event;
   add_new_event: boolean = false;
@@ -36,9 +52,26 @@ export class EventConfiguratorComponent implements OnInit {
     this.add_new_event = false;
   }
 
-  constructor() {}
-
   ngOnInit() {
     this.initEvent();
   }
+
+  private formGroup = new FormGroup({
+    genus: new FormControl([]),
+    subgenus: new FormControl([])
+  })  
+  private source$ = of([
+    {type: "Bird", options: [{species: "Hawk"}, {species: "Eagle"}, {species: "Crow"}]},
+    {type: "Reptile", options: [{species: "Snake"}, {species: "Crocodile"}, {species: "Gecko"}]},
+    {type: "Mammal", options: [{species: "Human"}, {species: "Monkey"}, {species: "Ape"}]},
+    {type: "Fish", options: [{species: "Shark"}, {species: "Cod"}, {species: "Trout"}]}
+  ]);
+  
+  private fromArrayObjectsToArrayOfOptions = (val : any[]) => (val.reduce((pre, elem) => [...pre, elem.options], []));
+  private fromArrayOfArraysToArray = (val) => (val.flat());
+  
+  private subSource$ = this.formGroup.get('genus').valueChanges.pipe(
+    map(this.fromArrayObjectsToArrayOfOptions),
+    map(this.fromArrayOfArraysToArray));
+  
 }
