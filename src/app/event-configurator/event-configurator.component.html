@@ -1,1 +1,23 @@
-<p>event-configurator works!</p>
+<div *ngIf="!add_new_event">
+  <button (click)="addNewEvent()">Add New Event</button>
+</div>
+
+<div *ngIf="add_new_event">
+  <div *ngIf="event.name != ''">
+    <label>{{ event.name }} - Event</label>
+  </div>
+  <div *ngIf="event.name == ''">
+    <label>[EventName] - Event</label>
+  </div>
+  <label
+    >Name:
+    <input [(ngModel)]="event.name" />
+  </label>
+  <select
+    ng-model="selectedName"
+    ng-options="entity.name for entity in simulator.entities"
+  ></select>
+  <div>
+    <button (click)="saveNewEvent()">Save New Event</button>
+  </div>
+</div>

@@ -6,4 +6,5 @@ export class Simulator {
     name: string;
     description: string;
     entities: SimulationEntity[];
+    events: Event[];
 }

@@ -17,7 +17,8 @@ export class ConfiguratorComponent implements OnInit {
       id: null,
       name: "",
       description: "",
-      entities: []
+      entities: [],
+      events: []
     };
   }
 
