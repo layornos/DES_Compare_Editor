@@ -1,11 +1,9 @@
 <div *ngIf="simulator">
   <h3 *ngIf="simulator.name == ''">[Simulator Name] - Configuration</h3>
   <h3 *ngIf="simulator.name != ''">{{ simulator.name }} - Configuration</h3>
-  <label
-    >Simulator Name:
-    <input [(ngModel)]="simulator.name" placeholder="Name" />
-  </label>
-
+  <mat-form-field>
+    <input matInput [(ngModel)]="simulator.name" placeholder="Simulator Name" />
+  </mat-form-field>
   <div *ngIf="simulator.entities">
     <li *ngFor="let entity of simulator.entities">
       <span class="entity">{{ entity.name }}</span> - Entity
@@ -17,9 +15,9 @@
     </li>
   </div>
 
-  <app-simulation-entity-configurator [simulator]="simulator"></app-simulation-entity-configurator>
+  <app-simulation-entity-configurator
+    [simulator]="simulator"
+  ></app-simulation-entity-configurator>
   <app-event-configurator [simulator]="simulator"></app-event-configurator>
-  <div>
-    
-  </div>
+  <div></div>
 </div>

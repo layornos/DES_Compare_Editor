@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatFormFieldModule,MatSelectModule,MatInputModule } from '@angular/material';
+import { MatFormFieldModule,MatSelectModule,MatInputModule, MatButtonModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -25,6 +25,7 @@ import { SimulationEntityConfiguratorComponent } from './simulation-entity-confi
     MatFormFieldModule,
     MatSelectModule,
     MatInputModule,
+    MatButtonModule,
     BrowserAnimationsModule,
     ReactiveFormsModule
   ],

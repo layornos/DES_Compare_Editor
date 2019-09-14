@@ -1,7 +1,7 @@
 <div *ngIf="!add_new_event">
-  <button (click)="addNewEvent()">Add New Event</button>
+  <button mat-raised-button (click)="addNewEvent()">Add New Event</button>
 </div>
-
+<br /><br />
 <div *ngIf="add_new_event">
   <div *ngIf="event.name != ''">
     <label>{{ event.name }} - Event</label>
@@ -9,62 +9,46 @@
   <div *ngIf="event.name == ''">
     <label>[EventName] - Event</label>
   </div>
-  <label
-    >Name:
-    <input [(ngModel)]="event.name" />
-  </label>
-  <select
-    ng-model="selectedName"
-    ng-options="entity.name for entity in simulator.entities"
-  ></select>
-  <div>
-    <button (click)="saveNewEvent()">Save New Event</button>
-  </div>
-</div>
 
-<h4>Basic mat-select</h4>
-<mat-form-field>
-  <mat-label>Favorite food</mat-label>
-  <mat-select>
-    <mat-option *ngFor="let food of foods" [value]="food.value">
-      {{ food.viewValue }}
-    </mat-option>
-  </mat-select>
-</mat-form-field>
-
-<h4>Basic native select</h4>
-<mat-form-field>
-  <mat-label>Cars</mat-label>
-  <select matNativeControl required>
-    <option value="volvo">Volvo</option>
-    <option value="saab">Saab</option>
-    <option value="mercedes">Mercedes</option>
-    <option value="audi">Audi</option>
-  </select>
-</mat-form-field>
-
-<form [formGroup]="formGroup">
   <mat-form-field>
-    <mat-select placeholder="Select a genus" formControlName="genus" multiple>
-      <mat-option *ngFor="let species of source$ | async" [value]="species">{{
-        species.type
-      }}</mat-option>
+    <input matInput [(ngModel)]="event.name" placeholder="Event Name" />
+  </mat-form-field>
+  <br />
+  <mat-form-field>
+    <mat-select placeholder="Select Entities" multiple>
+      <mat-option
+        *ngFor="let entity of simulator.entities"
+        [value]="entities"
+        >{{ entity.name }}</mat-option
+      >
     </mat-select>
   </mat-form-field>
   <br />
   <mat-form-field>
-    <mat-select
-      placeholder="Select a subgenus"
-      formControlName="subgenus"
-      multiple
-    >
-      <mat-option
-        *ngFor="let subspecies of subSource$ | async"
-        [value]="subspecies"
-      >
-        {{ subspecies.species }}
-      </mat-option>
+    <mat-select placeholder="Select Read Attributes" multiple>
+      <ng-container *ngFor="let entity of simulator.entities">
+        <mat-option
+          *ngFor="let read_attribute of entity.attributes"
+          [value]="read_attributes"
+          >{{ read_attribute.name }}</mat-option
+        >
+      </ng-container>
     </mat-select>
   </mat-form-field>
-</form>
->>>>>>> dropdownTest
+  <br />
+  <mat-form-field>
+    <mat-select placeholder="Select Write Attributes" multiple>
+      <ng-container *ngFor="let entity of simulator.entities">
+        <mat-option
+          *ngFor="let write_attribute of entity.attributes"
+          [value]="write_attributes"
+          >{{ write_attribute.name }}</mat-option
+        >
+      </ng-container>
+    </mat-select>
+  </mat-form-field>
+
+  <div>
+    <button mat-button (click)="saveNewEvent()">Save New Event</button>
+  </div>
+</div>
