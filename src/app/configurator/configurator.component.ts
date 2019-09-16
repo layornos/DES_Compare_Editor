@@ -16,14 +16,7 @@ export class ConfiguratorComponent implements OnInit {
 
 
   initSimulator() {
-    this.simulator = {
-      id: null,
-      name: "",
-      description: "",
-      entities: [],
-      events: [],
-      schedules: []
-    };
+    this.simulator = new Simulator();
   }
 
   
@@ -33,24 +26,6 @@ export class ConfiguratorComponent implements OnInit {
     this.initSimulator();
   }
 
-  getEntity(entityID : Guid) : SimulationEntity {
-    for(let entity of this.simulator.entities){
-      if(entity.id == entityID){
-        return entity;
-      }
-    }  
-    return null;
-  };
-
-  getAttribute(attributeID : Guid) : Attribute {
-    for(let entity of this.simulator.entities){
-      for(let attr of entity.attributes){
-        if(attr.id == attributeID){
-          return attr;
-        }
-      }
-    }
-    return null;
-  }
+  
 
 }

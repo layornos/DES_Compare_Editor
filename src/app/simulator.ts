@@ -1,34 +1,103 @@
-import { SimulationEntity } from './simulation_entity';
-import { Event } from './event';
-import { Guid } from 'guid-typescript';
-import { Schedules } from './schedules';
+import { SimulationEntity } from "./simulation_entity";
+import { Event } from "./event";
+import { Guid } from "guid-typescript";
+import { Schedules } from "./schedules";
+import { Attribute } from "./attribute";
 
 export class Simulator {
-    id: Guid;
-    name: string;
-    description: string;
-    entities: SimulationEntity[];
-    events: Event[];
-    schedules: Schedules[];
+  id: Guid;
+  name: string;
+  description: string;
+  entities: SimulationEntity[];
+  events: Event[];
+  schedules: Schedules[];
 
+  constructor() {
+    this.id = null;
+    this.name = "";
+    this.description = "";
+    this.entities = [];
+    this.events = [];
+    this.schedules = [];
+  }
 
-    toString(): string {
-        var out = "";
-        out = out + 'create-simulator --description \"' + this.description + '\" --name \"' + this.name + '\"\n';
-        out = out + 'set-current-simulator --simulator ' + this.name + '\n';
-        for(let entity of this.entities){
-            out = out + 'add-entity --name ' + entity.name + '\n';
-            for(let attr of entity.attributes){
-                out = out + 'add-attributes-to-entity --attribute-name ' + attr.name + ' --entity-name ' + entity.name + ' --type ' + attr.type + '\n';
-            }
-        }
-        for(let event of this.events){
-            out = out + 'add-event -- name ' + event.name + '\n';
-            if(event.reads){
-                out = out + 'add-read-attribute-to-entity --attribute-name ' + ""; // TODO attribute name and entity name extraction
-            }
-        }
-        return out;
+  getEntity(entityID: Guid): SimulationEntity {
+    for (let entity of this.entities) {
+      if (entity.id == entityID) {
+        return entity;
+      }
     }
-}
+    return null;
+  }
 
+  getAttribute(attributeID: Guid): Attribute {
+    for (let entity of this.entities) {
+      for (let attr of entity.attributes) {
+        if (attr.id == attributeID) {
+          return attr;
+        }
+      }
+    }
+    return null;
+  }
+
+  toString(): string {
+    var out = "";
+    out =
+      out +
+      'create-simulator --description "' +
+      this.description +
+      '" --name "' +
+      this.name +
+      '"\n';
+    out = out + "set-current-simulator --simulator " + this.name + "\n";
+    for (let entity of this.entities) {
+      out = out + "add-entity --name " + entity.name + "\n";
+      for (let attr of entity.attributes) {
+        out =
+          out +
+          "add-attributes-to-entity --attribute-name " +
+          attr.name +
+          " --entity-name " +
+          entity.name +
+          " --type " +
+          attr.type +
+          "\n";
+      }
+    }
+    for (let event of this.events) {
+      out = out + "add-event -- name " + event.name + "\n";
+      if (event.reads.length > 0) {
+        for (let read of event.reads) {
+          for (let entity of event.entity) {
+            out =
+              out +
+              "add-read-attribute-to-entity --attribute-name " +
+              this.getAttribute(read).name +
+              " --entity-name " +
+              this.getEntity(entity).name +
+              " --event-name " +
+              event.name +
+              "\n";
+          }
+        }
+      }
+      if (event.writes.length > 0) {
+        for (let read of event.reads) {
+          for (let entity of event.entity) {
+            out =
+              out +
+              "add-write-attribute-to-event --attribute-name " +
+              this.getAttribute(read).name +
+              " --entity-name " +
+              this.getEntity(entity).name +
+              " --event-name " +
+              event.name +
+              "\n";
+          }
+        }
+      }
+    }
+    return out;
+  }
+}
