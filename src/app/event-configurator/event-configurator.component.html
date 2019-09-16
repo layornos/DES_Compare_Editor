@@ -2,7 +2,6 @@
   <button mat-raised-button (click)="addNewEvent()">Add New Event</button>
 </div>
 
-<br /><br />
 <div *ngIf="add_new_event">
   <div *ngIf="newEvent.name != ''">
     <label>{{ newEvent.name }} - Event</label>

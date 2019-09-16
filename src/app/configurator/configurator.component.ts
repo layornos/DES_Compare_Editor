@@ -21,7 +21,8 @@ export class ConfiguratorComponent implements OnInit {
       name: "",
       description: "",
       entities: [],
-      events: []
+      events: [],
+      schedules: []
     };
   }
 

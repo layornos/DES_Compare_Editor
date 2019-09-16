@@ -32,10 +32,16 @@
       </ul>
     </li>
   </div>
-
-  <app-simulation-entity-configurator
-    [simulator]="simulator"
-  ></app-simulation-entity-configurator>
+  <br/>
+  <mat-divider></mat-divider>
+  <br/>
+  <app-simulation-entity-configurator [simulator]="simulator"></app-simulation-entity-configurator>
+  <br/>
+  <mat-divider></mat-divider>
+  <br/>
   <app-event-configurator [simulator]="simulator"></app-event-configurator>
-  <div></div>
+  <br/>
+  <mat-divider></mat-divider>
+  <br/>
+  <app-schedules-configurator [simulator]="simulator"></app-schedules-configurator>
 </div>

@@ -37,7 +37,7 @@ export class EventConfiguratorComponent implements OnInit {
   saveNewEvent() {
     if (this.newEvent.id != null
       && this.newEvent.entity.length > 0
-      && this.newEvent.schedules != null
+      // TODO: && this.newEvent.schedules != null
       && (this.newEvent.reads.length > 0 || this.newEvent.writes.length > 0)) {
       this.simulator.events.push(this.newEvent);
       this.initEvent();

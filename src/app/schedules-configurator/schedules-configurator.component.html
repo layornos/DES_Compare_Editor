@@ -1,0 +1,58 @@
+
+<div *ngIf="!add_new_schedules">
+  <button mat-raised-button (click)="initSchedules()">
+    Add Schedules Relation
+  </button>
+</div>
+
+<div *ngIf="add_new_schedules">
+    <h3>Schedules Configuration</h3>
+  <mat-form-field>
+    <input
+      matInput
+      [(ngModel)]="newSchedules.name"
+      placeholder="Schedules Name"
+    />
+  </mat-form-field>
+  <br />
+  <mat-form-field>
+    <input
+      matInput
+      [(ngModel)]="newSchedules.condition"
+      placeholder="Schedules Condition Function"
+    />
+  </mat-form-field>
+  <br />
+  <mat-form-field>
+    <input
+      matInput
+      [(ngModel)]="newSchedules.delay"
+      placeholder="Schedules Delay"
+    />
+  </mat-form-field>
+  <br />
+  <mat-form-field>
+      <mat-select placeholder="Select Start Event" [(ngModel)]="newSchedules.start_event">
+            <mat-option
+              *ngFor="let event of simulator.events"
+              value="event.name"
+              >{{ event.name }}</mat-option
+            >
+        </mat-select>
+  </mat-form-field>
+  <br />
+  <mat-form-field>
+      <mat-select placeholder="Select End Event" [(ngModel)]="newSchedules.end_event">
+          <mat-option
+            *ngFor="let event of simulator.events"
+            value="event.name"
+            >{{ event.name }}</mat-option
+          >
+      </mat-select>
+  </mat-form-field>
+
+  <br />
+  <button mat-raised-button (click)="saveSchedules()">
+    Save Schedules Relation
+  </button>
+</div>
