@@ -4,23 +4,13 @@ import { Event } from "../event";
 
 import { Guid } from "guid-typescript";
 
-
-export interface MockEvent{
-  id: Guid;
-  name: string;
-  entity: string[];
-  schedules: string;
-  reads: string[];
-  writes: string[];
-}
-
 @Component({
   selector: "app-event-configurator",
   templateUrl: "./event-configurator.component.html",
   styleUrls: ["./event-configurator.component.css"]
 })
 export class EventConfiguratorComponent implements OnInit {
-  @Input() simulator:Simulator;
+  @Input() simulator: Simulator;
 
   constructor() { }
   selectedEntities: string[];
@@ -38,16 +28,21 @@ export class EventConfiguratorComponent implements OnInit {
     }
   }
 
-  addNewEvent(){
-    this.add_new_event = true;
+  addNewEvent() {
     this.newEvent.id = Guid.create();
+    this.add_new_event = true;
   }
 
 
-  saveNewEvent(){
-    this.simulator.events.push(this.newEvent);
-    this.initEvent();
-    this.add_new_event = false;
+  saveNewEvent() {
+    if (this.newEvent.id != null
+      && this.newEvent.entity.length > 0
+      && this.newEvent.schedules != null
+      && (this.newEvent.reads.length > 0 || this.newEvent.writes.length > 0)) {
+      this.simulator.events.push(this.newEvent);
+      this.initEvent();
+      this.add_new_event = false;
+    }
   }
 
   ngOnInit() {

@@ -6,6 +6,6 @@ export class Schedules {
     name: string;
     condition: string;
     delay: string;
-    start_event: Event;
-    end_event: Event;
+    start_event: Guid;
+    end_event: Guid;
 }
