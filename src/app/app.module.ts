@@ -10,6 +10,7 @@ import { ConfiguratorComponent } from './configurator/configurator.component';
 import { EventConfiguratorComponent } from './event-configurator/event-configurator.component';
 import { SimulationEntityConfiguratorComponent } from './simulation-entity-configurator/simulation-entity-configurator.component';
 import { SchedulesConfiguratorComponent } from './schedules-configurator/schedules-configurator.component';
+import { CliInputGeneratorComponent } from './cli-input-generator/cli-input-generator.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { SchedulesConfiguratorComponent } from './schedules-configurator/schedul
     ConfiguratorComponent,
     EventConfiguratorComponent,
     SimulationEntityConfiguratorComponent,
-    SchedulesConfiguratorComponent
+    SchedulesConfiguratorComponent,
+    CliInputGeneratorComponent
   ],
   imports: [
     BrowserModule,

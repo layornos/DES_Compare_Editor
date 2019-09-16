@@ -10,4 +10,9 @@ export class Simulator {
     entities: SimulationEntity[];
     events: Event[];
     schedules: Schedules[];
+
+    toString() : string {
+        return "blah";
+    }
 }
+
