@@ -1,35 +1,36 @@
 <div *ngIf="!add_new_event">
   <button mat-raised-button (click)="addNewEvent()">Add New Event</button>
 </div>
+
 <br /><br />
 <div *ngIf="add_new_event">
-  <div *ngIf="event.name != ''">
-    <label>{{ event.name }} - Event</label>
+  <div *ngIf="newEvent.name != ''">
+    <label>{{ newEvent.name }} - Event</label>
   </div>
-  <div *ngIf="event.name == ''">
+  <div *ngIf="newEvent.name == ''">
     <label>[EventName] - Event</label>
   </div>
 
   <mat-form-field>
-    <input matInput [(ngModel)]="event.name" placeholder="Event Name" />
+    <input matInput [(ngModel)]="newEvent.name" placeholder="Event Name" />
   </mat-form-field>
   <br />
   <mat-form-field>
-    <mat-select placeholder="Select Entities" multiple>
+    <mat-select placeholder="Select Entities" [(ngModel)]="newEvent.entity" multiple>
       <mat-option
         *ngFor="let entity of simulator.entities"
-        [value]="entities"
+        [value]="entity.id"
         >{{ entity.name }}</mat-option
       >
     </mat-select>
   </mat-form-field>
   <br />
   <mat-form-field>
-    <mat-select placeholder="Select Read Attributes" multiple>
+    <mat-select placeholder="Select Read Attributes" [(ngModel)]="newEvent.reads" multiple>
       <ng-container *ngFor="let entity of simulator.entities">
         <mat-option
           *ngFor="let read_attribute of entity.attributes"
-          [value]="read_attributes"
+          [value]="read_attribute.id"
           >{{ read_attribute.name }}</mat-option
         >
       </ng-container>
@@ -37,11 +38,11 @@
   </mat-form-field>
   <br />
   <mat-form-field>
-    <mat-select placeholder="Select Write Attributes" multiple>
+    <mat-select placeholder="Select Write Attributes" [(ngModel)]="newEvent.writes" multiple>
       <ng-container *ngFor="let entity of simulator.entities">
         <mat-option
           *ngFor="let write_attribute of entity.attributes"
-          [value]="write_attributes"
+          [value]="write_attribute.id"
           >{{ write_attribute.name }}</mat-option
         >
       </ng-container>

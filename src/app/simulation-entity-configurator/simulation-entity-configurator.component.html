@@ -10,7 +10,7 @@
   <!-- <div><label>ID: <input [(ngModel)]="simEntity.id" /></label></div> -->
   <div>
     <mat-form-field>
-      <input matInput [(ngModel)]="simEntity.name" placeholder="Entity Name"/>
+      <input matInput [(ngModel)]="simEntity.name" placeholder="Entity Name" />
     </mat-form-field>
   </div>
 
@@ -23,8 +23,12 @@
     </div>
     <div><label>New Attribute:</label></div>
     <div>
-        <mat-form-field>
-      <input matInput [(ngModel)]="newAttribute.name" placeholder="Attribute Name"/>
+      <mat-form-field>
+        <input
+          matInput
+          [(ngModel)]="newAttribute.name"
+          placeholder="Attribute Name"
+        />
       </mat-form-field>
     </div>
     <div>

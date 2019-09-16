@@ -1,4 +1,3 @@
-
 <div *ngIf="simulator">
   <h3 *ngIf="simulator.name == ''">[Simulator Name] - Configuration</h3>
   <h3 *ngIf="simulator.name != ''">{{ simulator.name }} - Configuration</h3>
@@ -15,6 +14,24 @@
       </ul>
     </li>
   </div>
+  <div *ngIf="simulator.events">
+    <li *ngFor="let event of simulator.events">
+      <span class="event">{{ event.name }}</span> - Event
+      <ul>
+        <li *ngFor="let entity of event.entity">
+          <span class="event_to_entity">{{ getEntity(entity).name }}</span> - Entity
+        </li>
+        <li *ngFor="let reads of event.reads">
+          <span class="reads_attribute">{{ getAttribute(reads).name }}</span> - Reads
+          Attribute
+        </li>
+        <li *ngFor="let writes of event.writes">
+            <span class="writes_attribute">{{ getAttribute(writes).name }}</span> - Writes 
+            Attribute
+          </li>
+      </ul>
+    </li>
+  </div>
 
   <app-simulation-entity-configurator
     [simulator]="simulator"
@@ -22,4 +39,3 @@
   <app-event-configurator [simulator]="simulator"></app-event-configurator>
   <div></div>
 </div>
-

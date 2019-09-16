@@ -1,17 +1,17 @@
 import { Component, OnInit, Input } from "@angular/core";
 import { Simulator } from "../simulator";
 import { Event } from "../event";
-import { SimulationEntity } from "../simulation_entity";
-import { Attribute } from "../attribute";
+
 import { Guid } from "guid-typescript";
-import { FormGroup, FormControl } from '@angular/forms';
-import { of } from 'rxjs';
-import { map } from 'rxjs/operators';
 
 
-export interface Food {
-  value: string;
-  viewValue: string;
+export interface MockEvent{
+  id: Guid;
+  name: string;
+  entity: string[];
+  schedules: string;
+  reads: string[];
+  writes: string[];
 }
 
 @Component({
@@ -23,28 +23,29 @@ export class EventConfiguratorComponent implements OnInit {
   @Input() simulator:Simulator;
 
   constructor() { }
-
-  event: Event;
+  selectedEntities: string[];
+  newEvent: Event;
   add_new_event: boolean = false;
 
   initEvent() {
-    this.event = {
+    this.newEvent = {
       id: null,
       name: "",
       entity: [],
       schedules: null,
       reads: [],
       writes: []
-    };
+    }
   }
 
   addNewEvent(){
     this.add_new_event = true;
-    this.event.id = Guid.create();
+    this.newEvent.id = Guid.create();
   }
 
+
   saveNewEvent(){
-    this.simulator.events.push(event);
+    this.simulator.events.push(this.newEvent);
     this.initEvent();
     this.add_new_event = false;
   }

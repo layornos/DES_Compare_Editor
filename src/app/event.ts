@@ -6,8 +6,8 @@ import { Schedules } from './schedules';
 export class Event {
     id: Guid;
     name: string;
-    entity: SimulationEntity[];
-    schedules: Schedules;
-    reads: Attribute[];
-    writes: Attribute[];
+    entity: Guid[];
+    schedules: Guid;
+    reads: Guid[];
+    writes: Guid[];
 }
