@@ -46,7 +46,8 @@ export class SimulationEntityConfiguratorComponent implements OnInit {
   initNewAttribute() {
     this.newAttribute = {
       id: Guid.create(),
-      name: ""
+      name: "",
+      type: ""
     }
   }
 
