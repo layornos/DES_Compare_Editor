@@ -9,7 +9,8 @@
       <span class="entity">{{ entity.name }}</span> - Entity
       <ul>
         <li *ngFor="let attribute of entity.attributes">
-          <span class="attribute">{{ attribute.name }}</span> - Attribute
+          <span class="attribute_name">{{ attribute.name }}</span> :
+          <span class="attribute_type">{{ attribute.type }}</span> 
         </li>
       </ul>
     </li>
