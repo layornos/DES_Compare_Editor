@@ -8,4 +8,4 @@ sudo: requiredbranches:
   only:
   - masterbefore_script:
   - npm install -g @angular/cliscript:
-- ng build --prod --base-href git+https://$TOKEN:x-oauth-basic@github.com/foo/bar.git
+- ng build --prod --base-href https://github.com/layornos/DES_Compare_Editor 
