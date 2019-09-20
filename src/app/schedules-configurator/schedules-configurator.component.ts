@@ -1,23 +1,32 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { Simulator } from '../simulator';
-import { Schedules } from '../schedules';
-import { Guid } from 'guid-typescript';
+import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
+import { Simulator } from "../simulator";
+import { Schedules } from "../schedules";
+import { Guid } from "guid-typescript";
 
 @Component({
-  selector: 'app-schedules-configurator',
-  templateUrl: './schedules-configurator.component.html',
-  styleUrls: ['./schedules-configurator.component.css']
+  selector: "app-schedules-configurator",
+  templateUrl: "./schedules-configurator.component.html",
+  styleUrls: ["./schedules-configurator.component.css"]
 })
 export class SchedulesConfiguratorComponent implements OnInit {
   @Input() simulator: Simulator;
-  add_new_schedules: boolean = false;
-  newSchedules : Schedules 
-  constructor() { }
+  @Input() add_new_schedules: boolean = false;
+  @Output() finished = new EventEmitter<boolean>();
 
-  ngOnInit() {
+  newSchedules: Schedules;
+  constructor() {
+    this.setupNewSchedules();
   }
 
-  initSchedules(){
+  ngOnInit() {}
+
+  reset() {
+    this.add_new_schedules = false;
+    this.finished.emit(false);
+    this.setupNewSchedules();
+  }
+
+  setupNewSchedules() {
     this.newSchedules = {
       id: Guid.create(),
       name: "",
@@ -25,14 +34,25 @@ export class SchedulesConfiguratorComponent implements OnInit {
       delay: "",
       start_event: null,
       end_event: null
-    }
+    };
+  }
+
+  initSchedules() {
+    this.setupNewSchedules();
     this.add_new_schedules = true;
   }
 
-  saveSchedules(){
-    this.add_new_schedules = false;
-    this.simulator.schedules.push(this.newSchedules);
+  saveSchedules() {
+    if (
+      this.newSchedules.name != "" &&
+      this.newSchedules.condition != "" &&
+      this.newSchedules.delay != "" &&
+      this.newSchedules.start_event != null &&
+      this.newSchedules.end_event != null
+    ) {
+      this.add_new_schedules = false;
+      this.finished.emit(false);
+      this.simulator.schedules.push(this.newSchedules);
+    }
   }
-
-
 }

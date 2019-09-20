@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from "@angular/core";
+import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
 import { Simulator } from "../simulator";
 import { Event } from "../event";
 
@@ -11,15 +11,22 @@ import { Guid } from "guid-typescript";
 })
 export class EventConfiguratorComponent implements OnInit {
   @Input() simulator: Simulator;
+  @Output() finished = new EventEmitter<boolean>();
 
   constructor() { }
   selectedEntities: string[];
   newEvent: Event;
-  add_new_event: boolean = false;
+  @Input() add_new_event: boolean = false;
 
+  reset(){
+    this.add_new_event = false;
+    this.finished.emit(false);
+    this.initEvent();
+  }
+  
   initEvent() {
     this.newEvent = {
-      id: null,
+      id: Guid.create(),
       name: "",
       entity: [],
       schedules: null,
@@ -42,6 +49,16 @@ export class EventConfiguratorComponent implements OnInit {
       this.simulator.events.push(this.newEvent);
       this.initEvent();
       this.add_new_event = false;
+      this.finished.emit(false);
+    } else {
+      if(this.newEvent.id == null)
+        console.log("ERROR: ID");
+      if(this.newEvent.entity.length < 1)
+        console.log("ERROR: no entity");
+      if(this.newEvent.reads.length < 1 )
+        console.log("ERROR: reads");
+      if(this.newEvent.writes.length < 1 )
+        console.log("ERROR: writes");
     }
   }
 

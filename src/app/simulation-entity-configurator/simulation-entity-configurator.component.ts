@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { SimulationEntity } from '../simulation_entity';
 import { Guid } from 'guid-typescript';
 import { Attribute } from '../attribute';
@@ -10,28 +10,18 @@ import { Simulator } from '../simulator';
   styleUrls: ['./simulation-entity-configurator.component.css']
 })
 export class SimulationEntityConfiguratorComponent implements OnInit {
-  add_new_entity: boolean = false;
-  add_new_attribute: boolean = false;
+  @Input() add_new_entity: boolean;
   simEntity: SimulationEntity;
-  newAttribute: Attribute;
   @Input() simulator: Simulator;
+  @Output() finished = new EventEmitter<boolean>();
 
   addEntity() {
-    if (this.simEntity.name == "" || this.simEntity.attributes.length <= 0) {
+    if (this.simEntity.name == "") {
 
     } else {
       this.simulator.entities.push(this.simEntity);
       this.addNewEntity();
       this.initSimEntity();
-    }
-  }
-
-  addAttribute() {
-    if (this.newAttribute.name == "") {
-
-    } else {
-      this.simEntity.attributes.push(this.newAttribute);
-      this.initNewAttribute();
     }
   }
 
@@ -43,39 +33,26 @@ export class SimulationEntityConfiguratorComponent implements OnInit {
     }
   }
 
-  initNewAttribute() {
-    this.newAttribute = {
-      id: Guid.create(),
-      name: "",
-      type: ""
-    }
-  }
-
   addNewEntity() {
-    this.addNewAttribute();
     if (this.add_new_entity) {
       this.add_new_entity = false;
+      this.finished.emit(false);
     }
     else {
       this.add_new_entity = true;
     }
   }
 
-  addNewAttribute() {
-    if (this.add_new_attribute) {
-      this.add_new_attribute = false;
-    }
-    else {
-      this.add_new_attribute = true;
-    }
+  reset() {
+    this.add_new_entity = false;
+    this.finished.emit(false);
+    this.initSimEntity();
   }
-
 
   constructor() { }
 
   ngOnInit() {
     this.initSimEntity();
-    this.initNewAttribute();
   }
 
 }

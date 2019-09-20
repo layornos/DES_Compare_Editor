@@ -4,53 +4,71 @@
   <mat-form-field>
     <input matInput [(ngModel)]="simulator.name" placeholder="Simulator Name" />
   </mat-form-field>
-  <br/>
+  <br />
   <mat-form-field>
-      <input matInput [(ngModel)]="simulator.description" placeholder="Simulator Description" />
-    </mat-form-field>
-  <div *ngIf="simulator.entities">
-    <li *ngFor="let entity of simulator.entities">
-      <span class="entity">{{ entity.name }}</span> - Entity
-      <ul>
-        <li *ngFor="let attribute of entity.attributes">
-          <span class="attribute_name">{{ attribute.name }}</span> :
-          <span class="attribute_type">{{ attribute.type }}</span> 
-        </li>
-      </ul>
-    </li>
+    <input
+      matInput
+      [(ngModel)]="simulator.description"
+      placeholder="Simulator Description"
+    />
+  </mat-form-field>
+  <br />
+  <mat-divider></mat-divider>
+  <br />
+  <div
+    *ngIf="
+      add_new_entity == false &&
+      add_new_attribute == false &&
+      add_new_event == false &&
+      add_new_schedules == false
+    "
+  >
+    <button mat-raised-button (click)="addEntity()">
+      Add Entity to Simulation
+    </button>
+    <button mat-raised-button (click)="addAttribute()">
+      Add Attribute to Entity
+    </button>
+    <button mat-raised-button (click)="addEvent()">
+      Add Event to Simulator
+    </button>
+    <button mat-raised-button (click)="addSchedules()">
+      Add Schedules Relation to Simulation
+    </button>
   </div>
-  <div *ngIf="simulator.events">
-    <li *ngFor="let event of simulator.events">
-      <span class="event">{{ event.name }}</span> - Event
-      <ul>
-        <li *ngFor="let entity of event.entity">
-          <span class="event_to_entity">{{ simulator.getEntity(entity).name }}</span> - Entity
-        </li>
-        <li *ngFor="let reads of event.reads">
-          <span class="reads_attribute">{{ simulator.getAttribute(reads).name }}</span> - Reads
-          Attribute
-        </li>
-        <li *ngFor="let writes of event.writes">
-            <span class="writes_attribute">{{ simulator.getAttribute(writes).name }}</span> - Writes 
-            Attribute
-          </li>
-      </ul>
-    </li>
+  <div *ngIf="add_new_entity == true">
+    <app-simulation-entity-configurator
+      [simulator]="simulator"
+      [add_new_entity]="add_new_entity"
+      (finished)="reset($event)"
+    ></app-simulation-entity-configurator>
   </div>
-  <br/>
+  <div *ngIf="add_new_attribute == true">
+    <app-attribute-configurator
+      [simulator]="simulator"
+      [add_new_attribute]="add_new_attribute"
+      (finished)="reset($event)"
+    ></app-attribute-configurator>
+  </div>
+  <div *ngIf="add_new_event == true">
+    <app-event-configurator
+      [simulator]="simulator"
+      [add_new_event]="add_new_event"
+      (finished)="reset($event)"
+    ></app-event-configurator>
+  </div>
+  <div *ngIf="add_new_schedules == true">
+    <app-schedules-configurator
+      [simulator]="simulator"
+      [add_new_schedules]="add_new_schedules"
+      (finished)="reset($event)"
+    ></app-schedules-configurator>
+  </div>
+  <br />
   <mat-divider></mat-divider>
-  <br/>
-  <app-simulation-entity-configurator [simulator]="simulator"></app-simulation-entity-configurator>
-  <br/>
-  <mat-divider></mat-divider>
-  <br/>
-  <app-event-configurator [simulator]="simulator"></app-event-configurator>
-  <br/>
-  <mat-divider></mat-divider>
-  <br/>
-  <app-schedules-configurator [simulator]="simulator"></app-schedules-configurator>
-  <br/>
-  <mat-divider></mat-divider>
-  <br/>
+  <br />
   <app-cli-input-generator [simulator]="simulator"></app-cli-input-generator>
+  <mat-divider></mat-divider>
+  <br />
+  <app-simulator-tree-view [simulator]="simulator"></app-simulator-tree-view>
 </div>

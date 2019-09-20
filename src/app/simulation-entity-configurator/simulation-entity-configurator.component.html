@@ -13,39 +13,6 @@
       <input matInput [(ngModel)]="simEntity.name" placeholder="Entity Name" />
     </mat-form-field>
   </div>
-
-  <div *ngIf="add_new_attribute">
-    <div><label>Attributes: </label></div>
-    <div *ngIf="simEntity.attributes.length > 0">
-      <div *ngFor="let attribute of simEntity.attributes">
-        Attribute: {{ attribute.name }}
-      </div>
-    </div>
-    <div><label>New Attribute:</label></div>
-    <div>
-      <mat-form-field>
-        <input
-          matInput
-          [(ngModel)]="newAttribute.name"
-          placeholder="Attribute Name"
-        />
-      </mat-form-field>
-      <br/>
-      <mat-form-field>
-          <input
-            matInput
-            [(ngModel)]="newAttribute.type"
-            placeholder="Attribute Type"
-          />
-        </mat-form-field> 
-    </div>
-    <div>
-      <button mat-raised-button (click)="addAttribute()">
-        Add Attribute to {{ simEntity.name }}
-      </button>
-    </div>
-  </div>
-  <button mat-raised-button (click)="addEntity()">
-    Add Entity to Simulation
-  </button>
+  <button mat-raised-button (click)="addEntity()">Add Entity to Simulation</button>
+  <button mat-raised-button (click)="reset()">Cancel</button>
 </div>
