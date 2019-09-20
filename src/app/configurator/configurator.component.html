@@ -4,6 +4,10 @@
   <mat-form-field>
     <input matInput [(ngModel)]="simulator.name" placeholder="Simulator Name" />
   </mat-form-field>
+  <br/>
+  <mat-form-field>
+      <input matInput [(ngModel)]="simulator.description" placeholder="Simulator Description" />
+    </mat-form-field>
   <div *ngIf="simulator.entities">
     <li *ngFor="let entity of simulator.entities">
       <span class="entity">{{ entity.name }}</span> - Entity
