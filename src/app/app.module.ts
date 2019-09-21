@@ -14,6 +14,7 @@ import { CliInputGeneratorComponent } from './cli-input-generator/cli-input-gene
 import { AttributeConfiguratorComponent } from './attribute-configurator/attribute-configurator.component';
 import { SimulatorTreeViewComponent } from './simulator-tree-view/simulator-tree-view.component';
 import { EventReadConfiguratorComponent } from './event-read-configurator/event-read-configurator.component';
+import { EventWriteConfiguratorComponent } from './event-write-configurator/event-write-configurator.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { EventReadConfiguratorComponent } from './event-read-configurator/event-
     CliInputGeneratorComponent,
     AttributeConfiguratorComponent,
     SimulatorTreeViewComponent,
-    EventReadConfiguratorComponent
+    EventReadConfiguratorComponent,
+    EventWriteConfiguratorComponent
   ],
   imports: [
     BrowserModule,
