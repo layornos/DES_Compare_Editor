@@ -14,7 +14,7 @@ export class EventWriteConfiguratorComponent implements OnInit {
   @Input() simulator: Simulator;
   @Input() add_new_write_attribute: boolean = false;
   @Output() finished = new EventEmitter<boolean>();
-
+  writeCondition: string = "";
   newWritesAttribute: WritesAttribute 
 
 
@@ -30,6 +30,7 @@ export class EventWriteConfiguratorComponent implements OnInit {
   addWriteAttribute(){
     this.newWritesAttribute.attribute = this.newAttribute.id;
     this.newWritesAttribute.ofEntity = this.simEntity.id;
+    this.newWritesAttribute.condition = this.writeCondition;
     this.simulator.getEvent(this.newEvent.id).writes.push(this.newWritesAttribute);
     this.reset();
   }

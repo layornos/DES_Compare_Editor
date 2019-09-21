@@ -1,46 +1,54 @@
 <div *ngIf="add_new_write_attribute">
-    <div *ngIf="newEvent == null">
+  <div *ngIf="newEvent == null">
+    <mat-form-field>
+      <mat-select placeholder="Select Event" [(ngModel)]="newEvent">
+        <mat-option *ngFor="let event of simulator.events" [value]="event">{{
+          event.name
+        }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <div><button mat-raised-button (click)="reset()">Cancel</button></div>
+  </div>
+
+  <div *ngIf="newEvent != null">
+    <mat-form-field>
+      <mat-select placeholder="Select Entity" [(ngModel)]="simEntity">
+        <mat-option
+          *ngFor="let entity of simulator.entities"
+          [value]="entity"
+          >{{ entity.name }}</mat-option
+        >
+      </mat-select>
+    </mat-form-field>
+    <div *ngIf="simEntity != null">
       <mat-form-field>
-        <mat-select placeholder="Select Event" [(ngModel)]="newEvent">
-          <mat-option *ngFor="let event of simulator.events" [value]="event">{{
-            event.name
-          }}</mat-option>
-        </mat-select>
-      </mat-form-field>
-      <div><button mat-raised-button (click)="reset()">Cancel</button></div>
-    </div>
-  
-    <div *ngIf="newEvent != null">
-      <mat-form-field>
-        <mat-select placeholder="Select Entity" [(ngModel)]="simEntity">
+        <mat-select
+          placeholder="Select Write Attribute"
+          [(ngModel)]="newAttribute"
+        >
           <mat-option
-            *ngFor="let entity of simulator.entities"
-            [value]="entity"
-            >{{ entity.name }}</mat-option
+            *ngFor="let write_attribute of simEntity.attributes"
+            [value]="write_attribute"
+            >{{ write_attribute.name }}</mat-option
           >
         </mat-select>
       </mat-form-field>
-      <div *ngIf="simEntity != null">
-        <mat-form-field>
-          <mat-select
-            placeholder="Select Write Attribute"
-            [(ngModel)]="newAttribute"
-          >
-            <mat-option
-              *ngFor="let write_attribute of simEntity.attributes"
-              [value]="write_attribute"
-              >{{ write_attribute.name }}</mat-option
-            >
-          </mat-select>
-        </mat-form-field>
-      </div>
-      <div>
-        <button mat-raised-button (click)="addWriteAttribute()">
-          Add Write Attribute
-        </button>
-        <button mat-raised-button (click)="reset()">
-          Cancel
-        </button>
-      </div>
+      <br />
+      <mat-form-field>
+        <input
+          matInput
+          [(ngModel)]="writeCondition"
+          placeholder="Set Write Condition"
+        />
+      </mat-form-field>
+    </div>
+    <div>
+      <button mat-raised-button (click)="addWriteAttribute()">
+        Add Write Attribute
+      </button>
+      <button mat-raised-button (click)="reset()">
+        Cancel
+      </button>
     </div>
   </div>
+</div>

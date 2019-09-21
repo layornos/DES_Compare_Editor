@@ -14,7 +14,10 @@ export class CliInputGeneratorComponent implements OnInit {
 
   ngOnInit() {
   }
-
+  
+  toJSON(): string {
+    return JSON.stringify(this.simulator);
+  }
   
 
 }

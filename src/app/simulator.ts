@@ -148,6 +148,4 @@ export class Simulator {
     }
     return out;
   }
-
-  toJSON() {}
 }
