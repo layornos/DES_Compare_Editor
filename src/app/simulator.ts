@@ -124,7 +124,7 @@ export class Simulator {
     let out = "";
     for (let read of event.reads) {
       out =
-        out + "add-read-attribute-to-entity --attribute-name " + this.getAttribute(read.attribute).name +
+        out + "add-read-attribute-to-event --attribute-name " + this.getAttribute(read.attribute).name +
         " --entity-name " + this.getEntity(read.ofEntity).name +
         " --event-name " +  event.name +
         "\n";
@@ -134,18 +134,17 @@ export class Simulator {
 
   private generateEventWritesString(event: Event): string {
     let out = "";
-    for (let read of event.reads) {
-      for (let entity of event.entity) {
+    for (let write of event.writes) {
         out =
           out +
           "add-write-attribute-to-event --attribute-name " +
-          this.getAttribute(read).name +
+          this.getAttribute(write.attribute).name +
           " --entity-name " +
-          this.getEntity(entity).name +
+          this.getEntity(write.ofEntity).name +
           " --event-name " +
           event.name +
           "\n";
-      }
+      
     }
     return out;
   }

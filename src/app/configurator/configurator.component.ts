@@ -49,6 +49,7 @@ export class ConfiguratorComponent implements OnInit {
     this.add_new_entity = input;
     this.add_new_attribute = input;
     this.add_new_read_attribute = input;
+    this.add_new_write_attribute = input;
   }
 
   

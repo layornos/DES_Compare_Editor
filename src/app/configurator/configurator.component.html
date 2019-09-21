@@ -21,7 +21,8 @@
       add_new_attribute == false &&
       add_new_event == false &&
       add_new_schedules == false &&
-      add_new_read_attribute == false
+      add_new_read_attribute == false &&
+      add_new_write_attribute == false
     "
   >
     <button mat-raised-button (click)="addEntity()">
@@ -79,6 +80,13 @@
       (finished)="reset($event)"
     ></app-event-read-configurator>
   </div>
+  <div *ngIf="add_new_write_attribute == true">
+      <app-event-write-configurator
+        [simulator]="simulator"
+        [add_new_write_attribute]="add_new_write_attribute"
+        (finished)="reset($event)"
+      ></app-event-write-configurator>
+    </div>
   <div *ngIf="add_new_schedules == true">
     <app-schedules-configurator
       [simulator]="simulator"
