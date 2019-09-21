@@ -18,11 +18,11 @@
           <span class="event_to_entity">{{ simulator.getEntity(entity).name }}</span> - Entity
         </li>
         <li *ngFor="let reads of event.reads">
-          <span class="reads_attribute">{{ simulator.getAttribute(reads).name }}</span> - Reads
+          <span class="reads_attribute">{{ simulator.getAttribute(reads.attribute).name }}</span> - Reads
           Attribute
         </li>
         <li *ngFor="let writes of event.writes">
-            <span class="writes_attribute">{{ simulator.getAttribute(writes).name }}</span> - Writes 
+            <span class="writes_attribute">{{ simulator.getAttribute(writes.attribute).name }}</span> - Writes 
             Attribute
           </li>
       </ul>

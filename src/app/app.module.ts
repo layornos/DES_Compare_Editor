@@ -13,6 +13,7 @@ import { SchedulesConfiguratorComponent } from './schedules-configurator/schedul
 import { CliInputGeneratorComponent } from './cli-input-generator/cli-input-generator.component';
 import { AttributeConfiguratorComponent } from './attribute-configurator/attribute-configurator.component';
 import { SimulatorTreeViewComponent } from './simulator-tree-view/simulator-tree-view.component';
+import { EventReadConfiguratorComponent } from './event-read-configurator/event-read-configurator.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { SimulatorTreeViewComponent } from './simulator-tree-view/simulator-tree
     SchedulesConfiguratorComponent,
     CliInputGeneratorComponent,
     AttributeConfiguratorComponent,
-    SimulatorTreeViewComponent
+    SimulatorTreeViewComponent,
+    EventReadConfiguratorComponent
   ],
   imports: [
     BrowserModule,

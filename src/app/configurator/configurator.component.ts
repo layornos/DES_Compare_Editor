@@ -15,6 +15,8 @@ export class ConfiguratorComponent implements OnInit {
   add_new_event: boolean = false;
   add_new_schedules: boolean = false;
   add_new_entity: boolean = false;
+  add_new_read_attribute = false;
+  add_new_write_attribute = false;
 
   simulator: Simulator;
 
@@ -26,6 +28,12 @@ export class ConfiguratorComponent implements OnInit {
   }
   addEvent(){
     this.add_new_event = true;
+  }
+  addReadAttribute(){
+    this.add_new_read_attribute = true;
+  }
+  addWriteAttribute(){
+    this.add_new_write_attribute = true;
   }
   addSchedules(){
     this.add_new_schedules = true;
@@ -40,6 +48,7 @@ export class ConfiguratorComponent implements OnInit {
     this.add_new_schedules = input;
     this.add_new_entity = input;
     this.add_new_attribute = input;
+    this.add_new_read_attribute = input;
   }
 
   

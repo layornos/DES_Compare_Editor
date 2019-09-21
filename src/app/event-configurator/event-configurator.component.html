@@ -13,41 +13,6 @@
   <mat-form-field>
     <input matInput [(ngModel)]="newEvent.name" placeholder="Event Name" />
   </mat-form-field>
-  <br />
-  <mat-form-field>
-    <mat-select placeholder="Select Entities" [(ngModel)]="newEvent.entity" multiple>
-      <mat-option
-        *ngFor="let entity of simulator.entities"
-        [value]="entity.id"
-        >{{ entity.name }}</mat-option
-      >
-    </mat-select>
-  </mat-form-field>
-  <br />
-  <mat-form-field>
-    <mat-select placeholder="Select Read Attributes" [(ngModel)]="newEvent.reads" multiple>
-      <ng-container *ngFor="let entity of simulator.entities">
-        <mat-option
-          *ngFor="let read_attribute of entity.attributes"
-          [value]="read_attribute.id"
-          >{{ read_attribute.name }}</mat-option
-        >
-      </ng-container>
-    </mat-select>
-  </mat-form-field>
-  <br />
-  <mat-form-field>
-    <mat-select placeholder="Select Write Attributes" [(ngModel)]="newEvent.writes" multiple>
-      <ng-container *ngFor="let entity of simulator.entities">
-        <mat-option
-          *ngFor="let write_attribute of entity.attributes"
-          [value]="write_attribute.id"
-          >{{ write_attribute.name }}</mat-option
-        >
-      </ng-container>
-    </mat-select>
-  </mat-form-field>
-
   <div>
     <button mat-raised-button (click)="saveNewEvent()">Save New Event</button>
     <button mat-raised-button (click)="reset()">Cancel</button>
