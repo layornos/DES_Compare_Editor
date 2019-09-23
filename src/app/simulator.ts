@@ -23,7 +23,7 @@ export class Simulator {
 
   getEntity(entityID: Guid): SimulationEntity {
     for (let entity of this.entities) {
-      if (entity.id == entityID) {
+      if (entity.id.equals(entityID["value"])) {
         return entity;
       }
     }
@@ -32,7 +32,7 @@ export class Simulator {
 
   getEvent(eventID: Guid): Event {
     for (let event of this.events) {
-      if (event.id == eventID) {
+      if (event.id.equals(eventID["value"])) {
         return event;
       }
     }
@@ -42,7 +42,7 @@ export class Simulator {
   getAttribute(attributeID: Guid): Attribute {
     for (let entity of this.entities) {
       for (let attr of entity.attributes) {
-        if (attr.id == attributeID) {
+        if (attr.id.equals(attributeID["value"]))  {
           return attr;
         }
       }
@@ -59,10 +59,10 @@ export class Simulator {
       for (let schedule of this.schedules) {
         out =
           out +
-          "add-schedules-relation --condition-function " +
-          schedule.condition +
-          " --delay-function " +
-          schedule.delay +
+          "add-schedules-relation --condition-function \"" +
+          schedule.condition + "\"" +
+          " --delay-function \"" +
+          schedule.delay + "\"" +
           " --start-event-name " +
           schedule.start_event +
           " --end-event-name " +
