@@ -98,9 +98,9 @@
   <mat-divider></mat-divider>
   <br />
   <app-cli-input-generator [simulator]="simulator"></app-cli-input-generator>
-  <mat-divider></mat-divider>
+  <!--<mat-divider></mat-divider>
   <br />
-  <app-simulator-tree-view [simulator]="simulator"></app-simulator-tree-view>
+  <app-simulator-tree-view [simulator]="simulator"></app-simulator-tree-view>-->
 </div>
 
 <mat-divider></mat-divider>
@@ -108,6 +108,9 @@
 <div>
   <button mat-raised-button (click)="saveSimulator()">
     Save Simulator
+  </button>
+  <button mat-raised-button (click)="resetSimulator()">
+    Reset
   </button>
 </div>
 <br />

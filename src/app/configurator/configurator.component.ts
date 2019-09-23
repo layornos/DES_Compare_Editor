@@ -74,6 +74,12 @@ export class ConfiguratorComponent implements OnInit {
     }
   }
 
+  resetSimulator(){
+    this.simulator = new Simulator();
+    this.simulator.id = Guid.create();
+    this.reset(false);
+  }
+
   loadSimulator() {
     this.simulator = new Simulator();
     if(this.selectedSimulator != ""){
