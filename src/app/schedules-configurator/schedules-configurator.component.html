@@ -35,7 +35,7 @@
       <mat-select placeholder="Select Start Event" [(ngModel)]="newSchedules.start_event">
             <mat-option
               *ngFor="let event of simulator.events"
-              value="event.name"
+              [value]="event.name"
               >{{ event.name }}</mat-option
             >
         </mat-select>
@@ -45,7 +45,7 @@
       <mat-select placeholder="Select End Event" [(ngModel)]="newSchedules.end_event">
           <mat-option
             *ngFor="let event of simulator.events"
-            value="event.name"
+            [value]="event.name"
             >{{ event.name }}</mat-option
           >
       </mat-select>
