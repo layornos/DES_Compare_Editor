@@ -14,7 +14,7 @@ install:
 
 script:
   - npm run-script build
-  - cd dist/angular-github-pages-travis
+  - cd dist/DESCompareEditor
   - cp index.html 404.html
   
 deploy:
