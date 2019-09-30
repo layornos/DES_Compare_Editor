@@ -21,6 +21,6 @@ deploy:
   provider: pages
   skip_cleanup: true
   github_token: $TOKEN
-  local_dir: dist/angular-github-pages-travis
+  local_dir: dist/DESCompareEditor
   on:
     branch: master
