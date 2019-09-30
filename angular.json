@@ -45,6 +45,7 @@
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true,
+              "baseHref": "https://layornos.github.io/DES_Compare_Editor/",
               "budgets": [
                 {
                   "type": "initial",
