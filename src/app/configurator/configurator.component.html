@@ -117,17 +117,31 @@
 <mat-divider></mat-divider>
 <br />
 <div *ngIf="savedSimulators.length > 0">
-  <mat-form-field>
-    <mat-select
-      placeholder="Select Saved Simulator"
-      [(ngModel)]="selectedSimulator"
-    >
-      <mat-option *ngFor="let loadSim of savedSimulators" [value]="loadSim">{{
-        loadSim
-      }}</mat-option>
-    </mat-select>
-  </mat-form-field>
+  <div>
+    <mat-form-field>
+      <mat-select
+        placeholder="Select Saved Simulator"
+        [(ngModel)]="selectedSimulator"
+      >
+        <mat-option *ngFor="let loadSim of savedSimulators" [value]="loadSim">{{
+          loadSim
+        }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div>
+    <button mat-raised-button (click)="loadSimulator()">
+      Load Simulator (local browser storage)
+    </button>
+  </div>
 </div>
-<button mat-raised-button (click)="loadSimulator()">
-  Load Simulator
-</button>
+
+<br />
+<mat-divider></mat-divider>
+<br />
+
+<a [href]="generateDownloadJsonUri()" download="file.txt"
+  ><button mat-raised-button>
+    Download Simulator Specification
+  </button>
+</a>

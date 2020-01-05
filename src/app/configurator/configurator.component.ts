@@ -5,6 +5,7 @@ import { SimulationEntity } from '../simulation_entity';
 import { Attribute } from '../attribute';
 import { ReadsAttribute, WritesAttribute, Event } from '../event';
 import { Schedules } from '../schedules';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 @Component({
   selector: "app-configurator",
@@ -20,6 +21,7 @@ export class ConfiguratorComponent implements OnInit {
   add_new_write_attribute = false;
   selectedSimulator: string = "";
   savedSimulators: string[] = [];
+  fileUrl: SafeResourceUrl;
 
   simulator: Simulator;
 
@@ -68,13 +70,13 @@ export class ConfiguratorComponent implements OnInit {
   loadSimulators() {
     this.savedSimulators = [];
     for (var i = 0; i < localStorage.length; i++) {
-      if(localStorage.key(i).includes("Simulator: ")){
+      if (localStorage.key(i).includes("Simulator: ")) {
         this.savedSimulators.push(localStorage.key(i).replace("Simulator: ", ""));
       }
     }
   }
 
-  resetSimulator(){
+  resetSimulator() {
     this.simulator = new Simulator();
     this.simulator.id = Guid.create();
     this.reset(false);
@@ -82,14 +84,14 @@ export class ConfiguratorComponent implements OnInit {
 
   loadSimulator() {
     this.simulator = new Simulator();
-    if(this.selectedSimulator != ""){
+    if (this.selectedSimulator != "") {
       let simulator = JSON.parse(localStorage.getItem("Simulator: " + this.selectedSimulator));
       this.simulator.id = simulator["id"];
       this.simulator.name = simulator.name.replace("Simulator: ", "");
       this.simulator.description = simulator["description"];
-      for(let entity of simulator["entities"]){
+      for (let entity of simulator["entities"]) {
         let attributes: Attribute[] = [];
-        for(let attr of entity["attributes"]){
+        for (let attr of entity["attributes"]) {
           let tmpAttr: Attribute = {
             id: Guid.parse(attr["id"]["value"]),
             type: attr["type"],
@@ -104,17 +106,17 @@ export class ConfiguratorComponent implements OnInit {
         }
         this.simulator.entities.push(tmpEntity);
       }
-      for(let event of simulator["events"]){
+      for (let event of simulator["events"]) {
         let reads: ReadsAttribute[] = [];
         let writes: WritesAttribute[] = [];
-        for(let r of event["reads"]){
+        for (let r of event["reads"]) {
           let tempReads: ReadsAttribute = {
             attribute: r["attribute"],
             ofEntity: r["ofEntity"]
           }
           reads.push(tempReads);
         }
-        for(let w of event["writes"]){
+        for (let w of event["writes"]) {
           let tempWrites: WritesAttribute = {
             attribute: w["attribute"],
             ofEntity: w["ofEntity"],
@@ -122,7 +124,7 @@ export class ConfiguratorComponent implements OnInit {
           }
           writes.push(tempWrites);
         }
-        let tmpEvent:Event = {
+        let tmpEvent: Event = {
           id: Guid.parse(event["id"]["value"]),
           name: event["name"],
           schedules: event["schedules"],
@@ -131,7 +133,7 @@ export class ConfiguratorComponent implements OnInit {
         }
         this.simulator.events.push(tmpEvent);
       }
-      for(let sched of simulator["schedules"]){
+      for (let sched of simulator["schedules"]) {
         console.log(Guid.raw());
         console.log(sched["id"]["value"]);
         console.log(Guid.isGuid(Guid.parse(sched["id"]["value"])));
@@ -145,27 +147,32 @@ export class ConfiguratorComponent implements OnInit {
         }
         this.simulator.schedules.push(tmpSched);
       }
-      
+
     }
   }
 
-  parseObject(obj)
-{
-   for(var key in obj)
-   {
+  parseObject(obj) {
+    for (var key in obj) {
       console.log("key: " + key + ", value: " + obj[key])
-      if(obj[key] instanceof Object)
-      {
+      if (obj[key] instanceof Object) {
         this.parseObject(obj[key]);
       }
-   }
-}
+    }
+  }
 
-  clearLocalStorage(){
+  clearLocalStorage() {
     localStorage.clear();
   }
 
-  constructor() {}
+
+
+  generateDownloadJsonUri() {
+    const blob =new Blob([JSON.stringify(this.simulator)] ,{type:'application/octet-stream'});
+    this.fileUrl = this.sanitizer.bypassSecurityTrustResourceUrl(window.URL.createObjectURL(blob));
+    return this.fileUrl;
+  }
+
+  constructor(private sanitizer: DomSanitizer) { }
 
   ngOnInit() {
     this.initSimulator();

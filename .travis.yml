@@ -1,23 +1,26 @@
-dist: trusty
+dist: xenial
 sudo: false
 
 language: node_js
 node_js:
-  - stable
-
-addons:
-  apt:
-    sources:
-      - google-chrome
-    packages:
-      - google-chrome-stable
+  - "10"
 
 cache:
   directories:
-    - ./node_modules
+     - ./node_modules
 
 install:
   - npm install
 
 script:
-  - npm run test -- --watch=false --no-progress --browsers=ChromeHeadlessNoSandbox
+  - npm run-script build
+  - cd dist/DESCompareEditor
+  - cp index.html 404.html
+  
+deploy:
+  provider: pages
+  skip_cleanup: true
+  github_token: $TOKEN
+  local_dir: dist/DESCompareEditor
+  on:
+    branch: master
